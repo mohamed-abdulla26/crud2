@@ -1,0 +1,129 @@
+<div class="container">
+  <div class="row pt-3">
+    <div class="col-6">
+      <h4>Student Portal</h4>
+    </div>
+    <div class="col-6 text-end">
+      <button class="btn btn-outline-success" (click)="openModel()">Add new</button>
+    </div>
+  </div>
+  @if(studentList.length !== 0){
+  <div class="row">
+    @for(item of studentList; track $index){
+    <div class="col-3">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              {{item.name}}
+            </div>
+            <div class="col-6 text-end">
+              {{item.mobileno}}
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <p>{{item.city}} , {{item.state}},{{item.pincode}}</p>
+          <p>{{item.address}}</p>
+        </div>
+        <div class="card-footer text-center">
+          <div class="row">
+            <div class="col-6">
+              <small>{{item.email}}</small>
+            </div>
+            <div class="col-6">
+              <button class="btn btn-sm btn-primary" (click)="onEdit(item)">Edit</button>
+              <button class="btn btn-sm btn-danger" (click)="onDelete(item)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    }
+  </div>
+
+}@else{
+  <div class="row">
+    <div class="col-12 p-4 text-center">
+    <p>no record found,create new record</p>
+    </div>
+  </div>
+}
+
+
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Create New Student</h4>
+        <button type="button" class="btn-close" (click)="closeModel()"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-8">
+            <label>name</label>
+            <input type="text" [(ngModel)]="studentobj.name" class="form-control" placeholder="enter the name">
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <label>mobile no</label>
+            <input type="text" [(ngModel)]="studentobj.mobileno" class="form-control"
+              placeholder="enter the mobile number">
+          </div>
+          <div class="col-6">
+            <label>Email</label>
+            <input type="text" [(ngModel)]="studentobj.email" class="form-control" placeholder="enter the email">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <label>city</label>
+            <input type="text" [(ngModel)]="studentobj.city" class="form-control" placeholder="enter the city">
+          </div>
+          <div class="col-4">
+            <label>state</label>
+            <input type="text" [(ngModel)]="studentobj.state" class="form-control" placeholder="enter the state">
+          </div>
+          <div class="col-4">
+            <label>pincode</label>
+            <input type="text" [(ngModel)]="studentobj.pincode" class="form-control" placeholder="enter the pincode">
+          </div>
+
+
+          <div class="row">
+            <div class="col-12">
+              <label>Address</label>
+              <textarea rows="3" [(ngModel)]="studentobj.address" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="closeModel()">Close</button>
+          @if(studentobj.id ==0){
+            <button type="button" class="btn btn-primary" (click)="saveStudent()">save</button>
+          }@else{
+          <button type="button" class="btn btn-success" (click)="updateStudent()">update</button>
+          }
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
